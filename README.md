@@ -5,7 +5,7 @@ In my project:
 
 User Authentication:
 
-Implement a simple user authentication system. Users should be able to sign up, log in, and log out.
+Implement a simple user authentication system. Users able to sign up, log in, and log out.
 
 Task Management:
 
