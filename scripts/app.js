@@ -1,3 +1,37 @@
+// Добавляем обработчик для удаления задания при клике на крестик
+document.getElementById("myUL").addEventListener("click", function(ev) {
+  if (ev.target.className === "close") {
+    var listItem = ev.target.parentElement;
+    var taskContent = listItem.textContent.trim();
+    
+    // Получаем userId и username из MockAPI
+    getUserDataFromMockAPI((userId, username) => {
+      // Удаляем задание из сервера
+      deleteTaskFromMockAPI(taskContent, userId);
+    });
+
+    listItem.remove();
+  }
+});
+
+// Новая функция для удаления задания из MockAPI
+function deleteTaskFromMockAPI(taskContent, userId) {
+  fetch('https://658aef3aba789a9622382f6a.mockapi.io/tasks', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      userId: userId,
+      task: taskContent,
+    }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Задание успешно удалено из MockAPI:', data);
+    })
+    .catch(error => console.error('Ошибка удаления задания из MockAPI:', error));
+}
 
 function newElement() {
   var li = document.createElement("li");
@@ -65,3 +99,4 @@ list.addEventListener('click', function(ev) {
     ev.target.classList.toggle('checked');
   }
 }, false);
+
